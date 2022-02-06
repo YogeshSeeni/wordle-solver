@@ -1,23 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
-
+import TextField from "@mui/material/TextField";
+import { Button } from "@mui/material";
+import { FormGroup } from "@material-ui/core";
+import React, { useState } from 'react';
+import Word from "./components/Word";
 function App() {
+  const [words, setWords] = useState([{value: "opera", color: [0,1,0,2,0]}]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Word words={words} index={0} />
+      <Button variant="contained"  disableElevation>
+      Add
+      </Button>
     </div>
   );
 }
