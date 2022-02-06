@@ -1,30 +1,35 @@
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import { FormGroup } from "@material-ui/core";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import Word from "./components/Word";
+import Instructions from "./components/Instructions";
 import raw from "./words.txt";
-let allWords = []
+import Box from '@mui/material/Box';
+
+let allWords = [];
 fetch(raw)
-  .then(r => r.text())
-  .then(text => {
-    allWords = text.split("\n")
+  .then((r) => r.text())
+  .then((text) => {
+    allWords = text.split("\n");
   });
 function App() {
-  const [words, setWords] = useState([{value: "opera", color: [0,0,0,0,0], i: 0}]);
+  const [words, setWords] = useState([
+    { value: "oater", color: [0, 0, 0, 0, 0], i: 0 },
+  ]);
   let green = [];
   let yellow = [];
   let gray = [];
 
-  const wo = words.map((word) => 
-  <Word words={words} setWords={setWords} index={word.i} />
-  )
-  
+  const wo = words.map((word) => (
+    <Word words={words} setWords={setWords} index={word.i} />
+  ));
+
   function populateColors() {
-    green = []
-    yellow = []
-    gray = []
-    let t = []
+    green = [];
+    yellow = [];
+    gray = [];
+    let t = [];
     words.forEach((word) => {
       for (let j = 0; j < 5; j++) {
         if (word.color[j] == 0) {
@@ -35,7 +40,7 @@ function App() {
           green.push([word.value.charAt(j), j]);
         }
       }
-    })
+    });
     for (let g = 0; g < gray.length; g++) {
       if (green.includes(gray[g]) || yellow.includes(gray[g])) {
         continue;
@@ -86,17 +91,36 @@ function App() {
       if (b) {
         continue;
       }
-      setWords([...words, {value: allWords[word], color: [0,0,0,0,0], i: words.length}])
+      setWords([
+        ...words,
+        { value: allWords[word], color: [0, 0, 0, 0, 0], i: words.length },
+      ]);
       break;
     }
-    
   }
   return (
     <div className="App">
+      <Instructions />
       {wo}
-      <Button variant="contained"  onClick={makePrediction} disableElevation>
-      Add
+      <Box textAlign="center">
+        <Button
+        variant="contained"
+        onClick={makePrediction}
+        style={{
+          maxWidth: "300px",
+          maxHeight: "100px",
+          minWidth: "300px",
+          minHeight: "100px",
+          fontSize: "63px",
+          textAlign: "center",
+        color: "white",
+        }}
+        disableElevation
+      >
+          Add
       </Button>
+      </Box>
+      
     </div>
   );
 }
