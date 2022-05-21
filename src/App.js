@@ -15,7 +15,7 @@ fetch(raw)
   });
 function App() {
   const [words, setWords] = useState([
-    { value: "oater", color: [0, 0, 0, 0, 0], i: 0 },
+    { value: "adieu", color: [0, 0, 0, 0, 0], i: 0 },
   ]);
   let green = [];
   let yellow = [];
@@ -29,20 +29,26 @@ function App() {
     green = [];
     yellow = [];
     gray = [];
+    let tmpg=[]
+    let tmpy=[]
     let t = [];
     words.forEach((word) => {
       for (let j = 0; j < 5; j++) {
         if (word.color[j] == 0) {
           gray.push(word.value.charAt(j));
         } else if (word.color[j] == 1) {
-          yellow.push(word.value.charAt(j));
+
+          tmpy.push(word.value.charAt(j));
+          yellow.push([word.value.charAt(j), j]);
         } else {
+          tmpg.push(word.value.charAt(j));
           green.push([word.value.charAt(j), j]);
         }
       }
     });
     for (let g = 0; g < gray.length; g++) {
-      if (green.includes(gray[g]) || yellow.includes(gray[g])) {
+      
+      if (tmpg.includes(gray[g]) || tmpy.includes(gray[g])) {
         continue;
       } else {
         t.push(gray[g]);
@@ -53,6 +59,9 @@ function App() {
 
   function makePrediction() {
     populateColors();
+    console.log(gray);
+    console.log(yellow)
+    console.log(green)
     for (let word = 0; word < allWords.length; word++) {
       let b = false;
       for (let g = 0; g < gray.length; g++) {
@@ -65,7 +74,7 @@ function App() {
         continue;
       }
       for (let y = 0; y < yellow.length; y++) {
-        if (allWords[word].includes(yellow[y]) == false) {
+        if (allWords[word].includes(yellow[y][0]) == false || allWords[word].charAt(yellow[y][1]) == yellow[y][0]) {
           b = true;
           break;
         }
@@ -100,7 +109,7 @@ function App() {
   }
   return (
     <div className="App">
-      <Instructions />
+      <Instructions setWords={setWords}/>
       {wo}
       <Box textAlign="center">
         <Button
