@@ -32,6 +32,7 @@ export default function Instructions(props) {
         return v.toLowerCase();
       });
       tmpWords = tmpWords.filter(element => {return element !== '';});
+      tmpWords = tmpWords.map(el => el.trim());
       let words = []
       tmpWords.forEach((word) => {
         words.push({ value: word, color: [0, 0, 0, 0, 0], i: words.length })

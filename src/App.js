@@ -59,9 +59,6 @@ function App() {
 
   function makePrediction() {
     populateColors();
-    console.log(gray);
-    console.log(yellow)
-    console.log(green)
     for (let word = 0; word < allWords.length; word++) {
       let b = false;
       for (let g = 0; g < gray.length; g++) {
@@ -100,12 +97,14 @@ function App() {
       if (b) {
         continue;
       }
+
       setWords([
         ...words,
         { value: allWords[word], color: [0, 0, 0, 0, 0], i: words.length },
       ]);
-      break;
+      return;
     }
+    alert("Sorry!! Could not find any words.")
   }
   return (
     <div className="App">
